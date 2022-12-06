@@ -157,7 +157,7 @@ class Post extends Component
         $expertises = Expertises::orderBy('name', 'asc')->pluck('name','id');
 
         $posts = Api::where('consecutive', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('activitye_name', 'LIKE', '%'.$this->search.'%')
+                    // ->orWhere('activity_name', 'LIKE', '%'.$this->search.'%')
                     ->orderBy('id', 'desc')
                     ->paginate($this->perPage);
         
