@@ -17,6 +17,7 @@ class Post extends Component
     protected $paginationTheme = 'bootstrap';
 
     private $perPage = 5;
+    public $search = '';
 
     public $selectedID;
     public $consecutive;
@@ -28,6 +29,11 @@ class Post extends Component
     public $expertise;
     public $nac;
     public $cultural_right;
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function rules()
     {
@@ -150,7 +156,10 @@ class Post extends Component
         $nacs = Nacs::orderBy('name', 'asc')->pluck('name','id');
         $expertises = Expertises::orderBy('name', 'asc')->pluck('name','id');
 
-        $posts = Api::orderBy('id', 'desc')->paginate($this->perPage);
+        $posts = Api::where('consecutive', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('activitye_name', 'LIKE', '%'.$this->search.'%')
+                    ->orderBy('id', 'desc')
+                    ->paginate($this->perPage);
         
         return view('livewire.componentes.post', compact('monitors', 'culturalRights', 'nacs', 'expertises', 'posts'));
     }
