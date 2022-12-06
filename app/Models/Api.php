@@ -55,7 +55,7 @@ class Api extends Model
 
     public function setActivityDateAttribute($value)
     {
-        $this->attributes['activity_date'] = Carbon::parse($value)->format('Y-m-dd');
+        $this->attributes['activity_date'] = Carbon::parse($value)->format('Y-mm-dd');
     }
 
 
